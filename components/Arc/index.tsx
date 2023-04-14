@@ -1,48 +1,14 @@
-import { Button, HStack, Spinner, Stack, Text, VStack } from "@chakra-ui/react";
-import { CSSProperties, useContext, useState } from "react";
-import axios from "axios";
-import FileSaver from "file-saver";
+import { HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import { CSSProperties, useState } from "react";
 
 import TruncatedText from "../TruncatedText";
 import ChapterList from "../Chapter/ChapterList";
-import { MangaContext } from "../../pages/[manga]";
-import { MangaArc, RawMangaChapter } from "../../types";
-import HeroDownloadIcon from "../Icons/DownloadIcon";
+import { MangaArc } from "../../types";
 
 import ArcButton from "./Button";
 
 export default function ArcContainer({ title, synopsis, chapters }: MangaArc) {
-  const { name: mangaTitle, downloadable } = useContext(MangaContext);
   const [toggleChapters, setToggleChapters] = useState<boolean>(false);
-  const [download, setDownload] = useState<"onGoing" | "idle">("idle");
-
-  const downloadArcButtonOnClickHandler = async () => {
-    setDownload("onGoing");
-    try {
-      const rawMangaChapters = await Promise.all(
-        chapters.map(async (chapter) => {
-          return axios
-            .get<{ chapter: RawMangaChapter }>(`api/${mangaTitle}/${chapter.number}`)
-            .then((res) => res.data.chapter);
-        }),
-      );
-      const { message, zipUrl } = await axios
-        .post<{ message: string; zipUrl: string }>(`api/zip/download`, {
-          manga: mangaTitle,
-          entrie: rawMangaChapters,
-        })
-        .then((res) => res.data);
-
-      console.log(message);
-      const blob = await fetch(zipUrl).then((res) => res.blob());
-
-      FileSaver.saveAs(blob, `${mangaTitle} - ${title}`);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setDownload("idle");
-    }
-  };
 
   return (
     <>
@@ -61,15 +27,6 @@ export default function ArcContainer({ title, synopsis, chapters }: MangaArc) {
               Capítulos : {chapters.length}
             </Text>
           </ArcButton>
-          {downloadable && (
-            <Button disabled={download === "onGoing"} onClick={downloadArcButtonOnClickHandler}>
-              {download === "onGoing" ? (
-                <Spinner size={"sm"} thickness={"4px"} />
-              ) : (
-                <HeroDownloadIcon />
-              )}
-            </Button>
-          )}
         </HStack>
       </Stack>
 
