@@ -1,27 +1,9 @@
 <!-- @format -->
 
 ## Just having fun
-Days ago i tweeted that i wanted to do a manga reader app to evade annoying adds and having a calm dark mode by default so i can read easily by the night. And thats it, thats the whole point of the brief project. Part of the problem was that i couldnt fine an API directly with all the chapters of the series so i resorted to web scraping and with the right tools (Selenium and BeautifulSoup) and my vague knowledge on Python, i was able to scrap basic info about the Black Clover manga, put it all in a MongoDB database and create a NextJS app to render the whole thing.
-
-Days ago i tweeted that i wanted to do a manga reader app to evade annoying adds and having a calm dark mode by default so i can read easily by the night. And thats it, thats the whole point of the brief project. Part of the problem was that i couldnt fine an API directly with all the chapters of the series so i resorted to web scraping and with the right tools (Selenium and BeautifulSoup) and my vague knowledge on Python, i was able to scrap basic info about the Black Clover manga, put it all in a MongoDB database and create a NextJS app to render the whole thing.
-
-Days ago i tweeted that i wanted to do a manga reader app to evade annoying adds and having a calm dark mode by default so i can read easily by the night. And thats it, thats the whole point of the brief project. Part of the problem was that i couldnt fine an API directly with all the chapters of the series so i resorted to web scraping and with the right tools (Selenium and BeautifulSoup) and my vague knowledge on Python, i was able to scrap basic info about the Black Clover manga, put it all in a MongoDB database and create a NextJS app to render the whole thing.
-
-Days ago i decided to do a manga reader app to evade annoying adds and having a calm dark mode by default so i can read easily by the night. And thats it, thats the whole point of the brief project. Part of the problem was that i couldnt fine an API directly with all the chapters of the series so i resorted to web scraping and with the right tools (Selenium and BeautifulSoup) and my vague knowledge on Python, i was able to scrap basic info about the Black Clover manga, put it all in a MongoDB database and create a NextJS app to render the whole thing.
+Days ago i decided to do a manga reader app to evade annoying adds and having a smooth dark mode by default so i could read one of my favorite mangas easily by the night. Part of the problem was that i couldnt fine an API directly with all the chapters of the series so i resorted to web scraping and with the right tools (Selenium and BeautifulSoup) and my vague knowledge on Python, i was able to scrap basic info about the Black Clover manga, put it all in a MongoDB database and create a NextJS app to render the whole thing.
 
 For web scraping i used one page to get the link of all images from all chapters, and a famdom wikia to get the name of the arcs and their respective chapters, after that i created a MongoDB cluster with MongoDB Atlas to upload two JSON files. One of the files containing only the arcs name and the chapters name, and another one containing all the chapters with the src links of each page.
-
-## No models
-
-So everything is contained in just two collections, one for having the names of the arcs and chapters and the other one to get the chapters images url. Every chapter is identified by a unic number (theres no two chapters 10) so do i needed to relate the data to just render the needed pages? not actually so thats what i decided to go for NoSQL database and not doing some extra data modeling stuffs. Still each collection is an array with just one document, for the mangas collection the model resembles to:
-
-`{ name: string, description: string, content: Arcs[] }`
-
-And the chapters collection to:
-
-`{ name: string, chapters: Chapters[] }`
-
-So even though i dont have a concrete data model structure in my database i can still include more mangas to the app in and pretty structured way.
 
 ## Web Scraping
 
@@ -35,7 +17,7 @@ Translation was another important part of the app. I kinda made this app for my 
 
 ## Updates
 I now use Playwright for web scraping as it is easier to work in one programming language and because it can be used directly inside the api routes.
-I created a different (and private) app for manga creation/edition that can also upload the images of the manga to cloudinary, in order to make the chapters and arcs downloadable for the main app.
+I created a different (and private) app for manga creation/edition that can also upload the images of the manga to Cloudinary, in order to make the chapters and arcs downloadable for the main app.
 
 ## Things i might do later
 
